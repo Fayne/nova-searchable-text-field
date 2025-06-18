@@ -2,9 +2,9 @@
 
 namespace MobileNowGroup\SearchableTextField;
 
-use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Fields\Text;
 
-class SearchableText extends Field
+class SearchableText extends Text
 {
     /**
      * The field's component.
