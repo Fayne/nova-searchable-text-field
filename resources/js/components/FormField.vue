@@ -52,7 +52,6 @@ export default {
   data() {
     return {
       displayLabel: '',
-      suggestionLabels: [],
       labelToValueMap: { ...this.currentField?.labelToValueMap || {} },
     }
   },
@@ -67,7 +66,7 @@ export default {
     },
 
     suggestionLabels() {
-      return Object.keys(this.labelToValueMap)
+      return Object.keys(this.labelToValueMap).length > 0 ? Object.keys(this.labelToValueMap) : this.suggestions;
     },
 
     defaultAttributes() {
@@ -99,7 +98,7 @@ export default {
     async fetchSuggestions(query) {
       if (!query || !this.currentField['fetch-suggestion-url']) {
         this.labelToValueMap = this.currentField.labelToValueMap || {};
-        this.suggestionLabels = [];
+        this.suggestionLabels = this.suggestions || [];
 
         return;
       }
