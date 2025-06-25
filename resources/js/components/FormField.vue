@@ -51,13 +51,14 @@ export default {
 
   data() {
     return {
-      displayLabel: '',
+      displayLabel: this.value || '',
       labelToValueMap: { ...this.currentField?.labelToValueMap || {} },
     }
   },
 
   created() {
     this.debouncedFetch = debounce(this.fetchSuggestions, 300);
+    this.displayLabel = this.value || '';
   },
 
   computed: {
