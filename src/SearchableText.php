@@ -2,6 +2,7 @@
 
 namespace MobileNowGroup\SearchableTextField;
 
+use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Text;
 
 class SearchableText extends Text
@@ -33,5 +34,24 @@ class SearchableText extends Text
         return $this->withMeta([
             'fetch-suggestion-url' => $path,
         ]);
+    }
+
+    /**
+     * Prepare the element for JSON serialization.
+     *
+     * @return array<string, mixed>
+     */
+    #[\Override]
+    public function jsonSerialize(): array
+    {
+        $uniqueKey = \sprintf(
+        '%s-%s-%s-%s',
+            $this->attribute,
+            Str::slug($this->panel?->name ?? 'default'),
+            $this->component(),
+            Str::random(8)
+        );
+
+        return array_merge(parent::jsonSerialize(), compact('uniqueKey'));
     }
 }
